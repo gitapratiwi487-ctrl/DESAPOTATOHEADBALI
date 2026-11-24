@@ -3,9 +3,294 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Desa Potato Head — Bali</title>
+  <title>Welcome — Desa Potato Head Bali</title>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700&family=Playfair+Display:ital,wght@0,400;0,500;1,400&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --cream: #f4efe4;
+      --bg-forest: #1d3321;
+      --bg-card: #142417;
+      --clay: #b8552f;
+      --sand: #c9a26b;
+      --serif: "Playfair Display", Georgia, serif;
+      --sans: "DM Sans", system-ui, -apple-system, sans-serif;
+    }
+
+    *, *::before, *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      background-color: var(--bg-forest);
+      color: var(--cream);
+      font-family: var(--sans);
+      overflow-x: hidden;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* ================= WELCOME SECTION ================= */
+    .welcome-section {
+      position: relative;
+      background: transparent;
+      padding: clamp(56px, 8vw, 100px) clamp(16px, 4vw, 36px);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+    }
+
+    /* Grid 4 Gambar Naik Satu per Satu */
+    .welcome-gallery {
+      width: 100%;
+      max-width: 1080px;
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: clamp(12px, 2vw, 22px);
+      margin-bottom: clamp(32px, 5vw, 52px);
+    }
+
+    .gallery-card {
+      position: relative;
+      border-radius: 16px;
+      overflow: hidden;
+      aspect-ratio: 3 / 3.8;
+      background: var(--bg-card);
+      border: 1px solid rgba(201, 162, 107, 0.3);
+      box-shadow: 0 16px 34px rgba(0, 0, 0, 0.35);
+      /* Animasi otomatis naik satu per satu */
+      opacity: 0;
+      transform: translateY(45px);
+      animation: riseUp 0.9s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+    }
+
+    .gallery-card:nth-child(1) { animation-delay: 0.1s; }
+    .gallery-card:nth-child(2) { animation-delay: 0.28s; margin-top: 22px; }
+    .gallery-card:nth-child(3) { animation-delay: 0.46s; }
+    .gallery-card:nth-child(4) { animation-delay: 0.64s; margin-top: 22px; }
+
+    .gallery-card img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+      transition: transform 0.6s ease;
+    }
+
+    .gallery-card:hover img {
+      transform: scale(1.06);
+    }
+
+    .gallery-card::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(to top, rgba(16, 28, 19, 0.68) 0%, transparent 55%);
+      pointer-events: none;
+    }
+
+    .gallery-tag {
+      position: absolute;
+      bottom: 12px;
+      left: 14px;
+      z-index: 2;
+      font-size: 0.62rem;
+      font-weight: 700;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: var(--cream);
+      text-shadow: 0 2px 8px rgba(0, 0, 0, 0.65);
+    }
+
+    @keyframes riseUp {
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    /* Teks Tengah Transparan & Fade-In */
+    .welcome-text-box {
+      max-width: 680px;
+      margin: 0 auto;
+      background: transparent;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+    }
+
+    .fade-text {
+      opacity: 0;
+      transform: translateY(16px);
+      animation: fadeInText 0.9s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+    }
+
+    .t-delay-1 { animation-delay: 0.35s; }
+    .t-delay-2 { animation-delay: 0.55s; }
+    .t-delay-3 { animation-delay: 0.75s; }
+    .t-delay-4 { animation-delay: 0.95s; }
+
+    @keyframes fadeInText {
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .welcome-eyebrow {
+      font-size: 0.75rem;
+      font-weight: 700;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: var(--sand);
+      margin-bottom: 12px;
+      text-shadow: 0 2px 12px rgba(0, 0, 0, 0.5);
+    }
+
+    .welcome-heading {
+      font-family: var(--serif);
+      font-weight: 400;
+      font-size: clamp(1.95rem, 4.4vw, 3.25rem);
+      line-height: 1.15;
+      color: #ffffff;
+      max-width: 19ch;
+      text-shadow: 0 3px 18px rgba(0, 0, 0, 0.55);
+    }
+
+    .accent-italic {
+      font-style: italic;
+      color: var(--sand);
+    }
+
+    .welcome-divider {
+      width: 56px;
+      height: 1.5px;
+      background: var(--clay);
+      margin: 20px auto 16px;
+    }
+
+    .welcome-sub {
+      font-size: clamp(0.95rem, 1.6vw, 1.08rem);
+      line-height: 1.6;
+      color: var(--cream);
+      max-width: 42ch;
+      text-shadow: 0 2px 14px rgba(0, 0, 0, 0.5);
+    }
+
+    .welcome-cue {
+      margin-top: 24px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      font-size: 0.72rem;
+      font-weight: 700;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: var(--sand);
+    }
+
+    /* Panah Bounce Berulang */
+    .bounce-arrow {
+      display: inline-block;
+      font-size: 1rem;
+      animation: bounceLoop 1.5s infinite ease-in-out;
+    }
+
+    @keyframes bounceLoop {
+      0%, 20%, 50%, 80%, 100% { transform: translateY(0); }
+      40% { transform: translateY(7px); }
+      60% { transform: translateY(3px); }
+    }
+
+    /* Responsif Tablet & HP */
+    @media (max-width: 768px) {
+      .welcome-gallery {
+        grid-template-columns: repeat(2, 1fr);
+      }
+      .gallery-card:nth-child(2),
+      .gallery-card:nth-child(4) {
+        margin-top: 0;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <section class="welcome-section" aria-label="Welcome to Desa Potato Head">
+    <!-- 4 Gambar Naik Satu per Satu -->
+    <div class="welcome-gallery">
+      <div class="gallery-card">
+        <img
+          src="https://lh3.googleusercontent.com/d/1cTOPf49QUudo8rcnUxXtw06zHtecir-6"
+          onerror="this.onerror=null;this.src='https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?auto=format&fit=crop&w=700&q=80';"
+          alt="Staff Potato Head"
+          referrerpolicy="no-referrer"
+        />
+        <span class="gallery-tag">Staff Potato Head</span>
+      </div>
+
+      <div class="gallery-card">
+        <img
+          src="https://lh3.googleusercontent.com/d/1QSZg9C-MrFD5939mtApD_k1neHmb2vwN"
+          onerror="this.onerror=null;this.src='https://images.unsplash.com/photo-1582719478250-c89cae4dc85b?auto=format&fit=crop&w=700&q=80';"
+          alt="Hotel Potato Head"
+          referrerpolicy="no-referrer"
+        />
+        <span class="gallery-tag">Hotel Potato Head</span>
+      </div>
+
+      <div class="gallery-card">
+        <img
+          src="https://lh3.googleusercontent.com/d/119sByZlaAAzu6G-qcSao8w5-Vic1yc97"
+          onerror="this.onerror=null;this.src='https://images.unsplash.com/photo-1540541338287-41700207dee6?auto=format&fit=crop&w=700&q=80';"
+          alt="Desa Potato Head Bali"
+          referrerpolicy="no-referrer"
+        />
+        <span class="gallery-tag">Desa Potato Head</span>
+      </div>
+
+      <div class="gallery-card">
+        <img
+          src="https://lh3.googleusercontent.com/d/1SFm696EmDadRxr9on5eT0rpZVp6g07vz"
+          onerror="this.onerror=null;this.src='https://images.unsplash.com/photo-1536935338788-846bb9981813?auto=format&fit=crop&w=700&q=80';"
+          alt="Makanan Potato Head"
+          referrerpolicy="no-referrer"
+        />
+        <span class="gallery-tag">Makanan Potato Head</span>
+      </div>
+    </div>
+
+    <!-- Teks Tengah (Tidak Diubah, Background Transparan, Fade-In & Bounce Arrow) -->
+    <div class="welcome-text-box">
+      <span class="welcome-eyebrow fade-text t-delay-1">Welcome</span>
+      <h2 class="welcome-heading fade-text t-delay-2">
+        A place for people, culture and a <em class="accent-italic">brighter tomorrow.</em>
+      </h2>
+      <div class="welcome-divider fade-text t-delay-2" aria-hidden="true"></div>
+      <p class="welcome-sub fade-text t-delay-3">
+        Creativity, culture and care, together by the sea in Seminyak.
+      </p>
+      <div class="welcome-cue fade-text t-delay-4" aria-hidden="true">
+        <span>Explore Experiences Below</span>
+        <span class="bounce-arrow">&darr;</span>
+      </div>
+    </div>
+  </section>
+
+</body>
+</html>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Desa Potato Head — Bali</title>
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=DM+Sans:wght@400;500;700&family=Playfair+Display:ital,wght@0,400;0,500;1,400;1,500&family=Plus+Jakarta+Sans:wght@300;400;500;600&display=swap" rel="stylesheet" />
   <style>
     :root {
@@ -48,12 +333,11 @@
       outline-offset: 3px;
     }
 
-    /* ================= SHARED SCROLL-BLUR BACKGROUND ================= */
+    /* ================= SHARED SCROLL-BLUR HERO BACKGROUND (3 TOP SECTIONS) ================= */
     .hero-top-group {
       position: relative;
       isolation: isolate;
       overflow: hidden;
-      background-color: var(--bg-forest);
     }
 
     .hero-bg-layer {
@@ -62,266 +346,27 @@
       z-index: -1;
       pointer-events: none;
       background:
-        linear-gradient(to bottom, rgba(16, 28, 19, 0.36), rgba(16, 28, 19, 0.68)),
-        url("https://lh3.googleusercontent.com/d/1UHWz-n71ZLIXZ-ZIIaLGxK2fAAXqBW0_") center / cover no-repeat,
+        linear-gradient(to bottom, rgba(16, 28, 19, 0.42), rgba(16, 28, 19, 0.68)),
+        url("https://lh3.googleusercontent.com/d/1oLlRXzHeX_9pwjWZbsOksmoy5O7SCBc3") center / cover no-repeat,
         linear-gradient(145deg, #1f3a26 0%, #2c4a33 55%, #6e3720 100%);
-      opacity: var(--hero-opacity, 1);
-      filter: blur(var(--hero-blur, 0px)) saturate(1.06);
-      transform: scale(calc(1.04 + var(--hero-blur, 0px) * 0.008));
-      transition: opacity 0.25s cubic-bezier(0.25, 0.1, 0.25, 1), filter 0.18s linear, transform 0.18s linear;
-      will-change: opacity, filter, transform;
+      filter: blur(var(--hero-blur, 0px)) saturate(1.05);
+      transform: scale(calc(1 + var(--hero-blur, 0px) * 0.008));
+      transition: filter 0.12s linear, transform 0.12s linear;
+      will-change: filter, transform;
     }
 
-    /* Gradasi penyatu mulus di bagian bawah menuju section berikutnya */
-    .hero-top-group::after {
-      content: "";
-      position: absolute;
-      left: 0;
-      right: 0;
-      bottom: 0;
-      height: 180px;
-      background: linear-gradient(to bottom, transparent 0%, rgba(29, 51, 33, 0.72) 58%, var(--bg-forest) 100%);
-      pointer-events: none;
-      z-index: 0;
-    }
-
-    .welcome-section, .title-section, .wa-embed-wrap, .reviews-section {
-      position: relative;
-      z-index: 1;
-    }
-
-    /* ================= 1. HERO SECTION (WELCOME COLLAGE DI POSISI ATAS) ================= */
-    .welcome-section {
-      background: transparent;
-      padding: clamp(72px, 10vw, 120px) clamp(16px, 4vw, 36px) clamp(64px, 9vw, 110px);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      min-height: 92vh;
-      overflow: hidden;
-    }
-
-    .welcome-stage {
-      position: relative;
-      width: 100%;
-      max-width: 1140px;
-      min-height: clamp(500px, 60vw, 640px);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      margin: 0 auto;
-    }
-
-    /* Layer 4 Gambar Kolase Mengelilingi Teks (Ukuran Kotak Sama & Tidak Ter-crop) */
-    .collage-layer {
-      position: absolute;
-      inset: 0;
-      pointer-events: none;
-    }
-
-    .collage-card {
-      position: absolute;
-      width: clamp(190px, 21vw, 250px);
-      height: clamp(190px, 21vw, 250px);
-      border-radius: 16px;
-      overflow: hidden;
-      background: rgba(20, 36, 23, 0.72);
-      backdrop-filter: blur(4px);
-      border: 1px solid rgba(201, 162, 107, 0.35);
-      box-shadow: 0 22px 46px rgba(0, 0, 0, 0.42);
-      padding: 8px 8px 32px 8px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
+    .hero-bg-layer.is-hidden {
       opacity: 0;
-      will-change: transform, opacity;
-      transition:
-        opacity 0.9s var(--ease),
-        transform 1.05s var(--ease);
     }
 
-    .collage-card img {
-      width: 100%;
-      height: 100%;
-      object-fit: contain;
-      border-radius: 10px;
-      display: block;
-    }
-
-    .collage-label {
-      position: absolute;
-      bottom: 9px;
-      left: 12px;
-      right: 12px;
-      text-align: center;
-      font-size: 0.62rem;
-      font-weight: 700;
-      letter-spacing: 0.16em;
-      text-transform: uppercase;
-      color: var(--cream);
-      text-shadow: 0 2px 8px rgba(0, 0, 0, 0.65);
-      white-space: nowrap;
-      overflow: hidden;
-      text-overflow: ellipsis;
-    }
-
-    /* Posisi Sudut & Posisi Awal Naik dari Bawah */
-    .card-staff {
-      top: 5%;
-      left: 2%;
-      transform: translateY(75px) rotate(-5deg);
-      transition-delay: 0.08s;
-    }
-
-    .card-hotel {
-      top: 2%;
-      right: 4%;
-      transform: translateY(85px) rotate(4deg);
-      transition-delay: 0.24s;
-    }
-
-    .card-desa {
-      bottom: 4%;
-      left: 5%;
-      transform: translateY(95px) rotate(3.5deg);
-      transition-delay: 0.4s;
-    }
-
-    .card-food {
-      bottom: 3%;
-      right: 2%;
-      transform: translateY(105px) rotate(-4deg);
-      transition-delay: 0.56s;
-    }
-
-    /* State Aktif saat Masuk Layar (Naik satu per satu) */
-    .welcome-section.is-visible .collage-card {
-      opacity: 1;
-    }
-    .welcome-section.is-visible .card-staff {
-      transform: translateY(0) rotate(-5deg);
-    }
-    .welcome-section.is-visible .card-hotel {
-      transform: translateY(0) rotate(4deg);
-    }
-    .welcome-section.is-visible .card-desa {
-      transform: translateY(0) rotate(3.5deg);
-    }
-    .welcome-section.is-visible .card-food {
-      transform: translateY(0) rotate(-4deg);
-    }
-
-    /* Teks Tengah dengan Background Transparan & Fade-In */
-    .welcome-inner {
-      position: relative;
-      z-index: 3;
-      max-width: 640px;
-      margin: 0 auto;
-      padding: clamp(24px, 4vw, 40px);
-      background: transparent;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      text-align: center;
-    }
-
-    .fade-item {
-      opacity: 0;
-      transform: translateY(18px);
-      transition: opacity 0.95s var(--ease), transform 0.95s var(--ease);
-    }
-
-    .welcome-section.is-visible .fade-item {
-      opacity: 1;
-      transform: translateY(0);
-    }
-
-    .welcome-section.is-visible .delay-1 { transition-delay: 0.2s; }
-    .welcome-section.is-visible .delay-2 { transition-delay: 0.38s; }
-    .welcome-section.is-visible .delay-3 { transition-delay: 0.55s; }
-    .welcome-section.is-visible .delay-4 { transition-delay: 0.72s; }
-
-    .welcome-eyebrow {
-      font-size: 0.75rem;
-      font-weight: 700;
-      letter-spacing: 0.22em;
-      text-transform: uppercase;
-      color: var(--sand);
-      margin-bottom: 12px;
-      text-shadow: 0 2px 14px rgba(0, 0, 0, 0.75);
-    }
-
-    .welcome-heading {
-      font-family: var(--serif);
-      font-weight: 400;
-      font-size: clamp(1.95rem, 4.4vw, 3.3rem);
-      line-height: 1.15;
-      color: #ffffff;
-      max-width: 19ch;
-      text-shadow: 0 3px 22px rgba(0, 0, 0, 0.8);
-    }
-
-    .accent-italic {
-      font-style: italic;
-      color: var(--sand);
-    }
-
-    .welcome-divider {
-      width: 56px;
-      height: 1.5px;
-      background: var(--clay);
-      margin: 20px auto 16px;
-    }
-
-    .welcome-sub {
-      font-size: clamp(0.95rem, 1.6vw, 1.1rem);
-      line-height: 1.6;
-      color: var(--cream);
-      max-width: 42ch;
-      text-shadow: 0 2px 16px rgba(0, 0, 0, 0.8);
-    }
-
-    .welcome-cue {
-      margin-top: 24px;
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      gap: 8px;
-      font-size: 0.72rem;
-      font-weight: 700;
-      letter-spacing: 0.16em;
-      text-transform: uppercase;
-      color: var(--sand);
-      text-shadow: 0 2px 12px rgba(0, 0, 0, 0.75);
-    }
-
-    /* Animasi Bounce Berulang pada Panah */
-    .bounce-arrow {
-      display: inline-block;
-      font-size: 1rem;
-      animation: arrowBounce 1.6s infinite ease-in-out;
-    }
-
-    @keyframes arrowBounce {
-      0%, 20%, 50%, 80%, 100% {
-        transform: translateY(0);
-      }
-      40% {
-        transform: translateY(7px);
-      }
-      60% {
-        transform: translateY(3px);
-      }
-    }
-
-    /* ================= 2. SECTION BAWAHNYA: GOOD TIMES, DONE GOOD ================= */
+    /* 1A. HERO TITLE */
     .title-section {
-      min-height: 46vh;
+      min-height: 56vh;
       display: flex;
       align-items: center;
       justify-content: center;
       text-align: center;
-      padding: clamp(48px, 7vw, 84px) clamp(16px, 4vw, 32px) 20px;
+      padding: clamp(48px, 8vw, 96px) clamp(16px, 4vw, 32px) 20px;
     }
 
     .title-inner {
@@ -371,7 +416,7 @@
       50% { transform: translateY(-4px); }
     }
 
-    /* WHATSAPP CTA */
+    /* 1B. WHATSAPP CTA */
     .wa-embed-wrap {
       display: flex;
       align-items: center;
@@ -410,11 +455,11 @@
       flex-shrink: 0;
     }
 
-    /* GUEST REVIEWS */
+    /* 1C. GUEST REVIEWS */
     .reviews-section {
       max-width: 1160px;
       margin: 0 auto;
-      padding: 8px 0 clamp(64px, 8vw, 108px);
+      padding: 8px 0 clamp(32px, 5vw, 56px);
     }
 
     .reviews-header {
@@ -520,298 +565,3 @@
       color: var(--muted);
       font-weight: 500;
     }
-
-    /* Responsif Mobile */
-    @media (max-width: 768px) {
-      .welcome-stage {
-        min-height: 560px;
-      }
-      .collage-card {
-        width: 140px;
-        height: 140px;
-        padding: 6px 6px 26px 6px;
-      }
-      .card-staff {
-        top: 0;
-        left: -2%;
-      }
-      .card-hotel {
-        top: 0;
-        right: -2%;
-      }
-      .card-desa {
-        bottom: 0;
-        left: -2%;
-      }
-      .card-food {
-        bottom: 0;
-        right: -2%;
-      }
-    }
-
-    @media (prefers-reduced-motion: reduce) {
-      .collage-card, .fade-item, .bounce-arrow, .main-title {
-        transition: none !important;
-        animation: none !important;
-        opacity: 1 !important;
-        transform: none !important;
-      }
-    }
-  </style>
-</head>
-<body>
-
-  <!-- GABUNGAN HERO (WELCOME COLLAGE) + SECTION GOOD TIMES, DONE GOOD -->
-  <div class="hero-top-group" id="heroTopGroup">
-    <div class="hero-bg-layer" id="heroBgLayer" aria-hidden="true"></div>
-
-    <!-- 1. HERO SECTION: WELCOME COLLAGE -->
-    <header class="welcome-section" id="welcomeSection" aria-label="Welcome to Desa Potato Head">
-      <div class="welcome-stage">
-        <!-- 4 Kotak Gambar Ukuran Sama & Utuh (Tidak Ter-crop) -->
-        <div class="collage-layer" aria-hidden="true">
-          <div class="collage-card card-staff">
-            <img
-              src="https://lh3.googleusercontent.com/d/1cTOPf49QUudo8rcnUxXtw06zHtecir-6"
-              onerror="this.onerror=null;this.src='https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?auto=format&fit=crop&w=700&q=80';"
-              alt="Staff Potato Head"
-              loading="lazy"
-              referrerpolicy="no-referrer"
-            />
-            <span class="collage-label">Staff Potato Head</span>
-          </div>
-
-          <div class="collage-card card-hotel">
-            <img
-              src="https://lh3.googleusercontent.com/d/1QSZg9C-MrFD5939mtApD_k1neHmb2vwN"
-              onerror="this.onerror=null;this.src='https://images.unsplash.com/photo-1582719478250-c89cae4dc85b?auto=format&fit=crop&w=700&q=80';"
-              alt="Hotel Potato Head"
-              loading="lazy"
-              referrerpolicy="no-referrer"
-            />
-            <span class="collage-label">Hotel Potato Head</span>
-          </div>
-
-          <div class="collage-card card-desa">
-            <img
-              src="https://lh3.googleusercontent.com/d/119sByZlaAAzu6G-qcSao8w5-Vic1yc97"
-              onerror="this.onerror=null;this.src='https://images.unsplash.com/photo-1540541338287-41700207dee6?auto=format&fit=crop&w=700&q=80';"
-              alt="Desa Potato Head Bali"
-              loading="lazy"
-              referrerpolicy="no-referrer"
-            />
-            <span class="collage-label">Desa Potato Head</span>
-          </div>
-
-          <div class="collage-card card-food">
-            <img
-              src="https://lh3.googleusercontent.com/d/1SFm696EmDadRxr9on5eT0rpZVp6g07vz"
-              onerror="this.onerror=null;this.src='./assets/3DB2EE21-EA10-45E0-8A5E-0882C616F760.jpeg';"
-              alt="Makanan Potato Head"
-              loading="lazy"
-              referrerpolicy="no-referrer"
-            />
-            <span class="collage-label">Makanan Potato Head</span>
-          </div>
-        </div>
-
-        <!-- Teks Tengah (Background Transparan, Fade-In & Bounce Arrow) -->
-        <div class="welcome-inner">
-          <span class="welcome-eyebrow fade-item delay-1">Welcome</span>
-          <h1 class="welcome-heading fade-item delay-2">
-            A place for people, culture and a <em class="accent-italic">brighter tomorrow.</em>
-          </h1>
-          <div class="welcome-divider fade-item delay-2" aria-hidden="true"></div>
-          <p class="welcome-sub fade-item delay-3">
-            Creativity, culture and care, together by the sea in Seminyak.
-          </p>
-          <div class="welcome-cue fade-item delay-4" aria-hidden="true">
-            <span>Explore Experiences Below</span>
-            <span class="bounce-arrow">&darr;</span>
-          </div>
-        </div>
-      </div>
-    </header>
-
-    <!-- 2. SECTION BAWAHNYA: GOOD TIMES, DONE GOOD + WHATSAPP + REVIEWS -->
-    <section class="title-section" id="goodTimesSection" aria-label="Good Times, Done Good">
-      <div class="title-inner">
-        <span class="title-kicker">Desa Potato Head &middot; Bali</span>
-        <span class="title-divider" aria-hidden="true"></span>
-        <h2 class="main-title">Good Times, Done Good</h2>
-        <p class="title-sub">A creative village by the ocean where music, art, and sustainability come together.</p>
-      </div>
-    </section>
-
-    <div class="wa-embed-wrap">
-      <a
-        class="wa-pill-btn"
-        href="https://wa.me/6281234567890?text=Hi%20Desa%20Potato%20Head%2C%20I%20would%20like%20to%20chat%20with%20you."
-        target="_blank"
-        rel="noopener noreferrer"
-      >
-        <svg viewBox="0 0 32 32" aria-hidden="true">
-          <path d="M16 3C8.82 3 3 8.82 3 16c0 2.3.6 4.54 1.74 6.52L3.1 28.9l6.56-1.61A12.92 12.92 0 0 0 16 29c7.18 0 13-5.82 13-13S23.18 3 16 3zm0 23.8c-1.95 0-3.86-.52-5.54-1.51l-.4-.24-3.89.95 1.04-3.79-.26-.41A10.74 10.74 0 0 1 5.2 16c0-5.96 4.84-10.8 10.8-10.8S26.8 10.04 26.8 16 21.96 26.8 16 26.8zm5.92-8.09c-.32-.16-1.92-.95-2.22-1.06-.3-.11-.52-.16-.74.16-.22.32-.85 1.06-1.04 1.27-.19.22-.38.24-.7.08-.32-.16-1.37-.5-2.61-1.61-.96-.86-1.61-1.92-1.8-2.24-.19-.32-.02-.49.14-.65.14-.14.32-.38.48-.57.16-.19.22-.32.32-.54.11-.22.05-.41-.03-.57-.08-.16-.74-1.78-1.01-2.44-.27-.64-.54-.55-.74-.56h-.63c-.22 0-.57.08-.87.41-.3.32-1.14 1.12-1.14 2.72s1.17 3.15 1.33 3.37c.16.22 2.3 3.51 5.57 4.92.78.34 1.39.54 1.86.69.78.25 1.49.21 2.05.13.63-.09 1.92-.78 2.19-1.54.27-.75.27-1.4.19-1.54-.08-.14-.3-.22-.62-.38z"/>
-        </svg>
-        <span>Chat Us on WhatsApp</span>
-      </a>
-    </div>
-
-    <section class="reviews-section" aria-label="Google Reviews">
-      <div class="reviews-header">
-        <h2>What Guests Say</h2>
-        <a
-          href="https://www.google.com/maps/search/?api=1&query=Desa+Potato+Head+Seminyak+Bali+reviews"
-          target="_blank"
-          rel="noopener noreferrer"
-          class="google-rating-pill"
-        >
-          <span class="pill-star">&#9733;</span> 4.7 / 5 on Google Reviews &middot; Open Google Reviews &nearr;
-        </a>
-      </div>
-
-      <div class="reviews-track" id="reviewsTrack">
-        <a href="https://www.google.com/maps/search/?api=1&query=Desa+Potato+Head+Seminyak+Bali+reviews" target="_blank" rel="noopener noreferrer" class="review-card-link">
-          <article class="review-card">
-            <div class="review-stars">&#9733;&#9733;&#9733;&#9733;&#9733; &middot; Beach Club &amp; Sunset</div>
-            <p class="review-text">&ldquo;Unmatched sunset views right by the ocean with great music, poolside energy, and attentive staff throughout the afternoon.&rdquo;</p>
-            <span class="review-meta">Google Review &middot; Seminyak &nearr;</span>
-          </article>
-        </a>
-        <a href="https://www.google.com/maps/search/?api=1&query=Desa+Potato+Head+Seminyak+Bali+reviews" target="_blank" rel="noopener noreferrer" class="review-card-link">
-          <article class="review-card">
-            <div class="review-stars">&#9733;&#9733;&#9733;&#9733;&#9733; &middot; Stays &amp; Architecture</div>
-            <p class="review-text">&ldquo;Thoughtful zero-waste design, comfortable studios, and genuinely warm hospitality from check-in to departure.&rdquo;</p>
-            <span class="review-meta">Google Review &middot; Seminyak &nearr;</span>
-          </article>
-        </a>
-        <a href="https://www.google.com/maps/search/?api=1&query=Desa+Potato+Head+Seminyak+Bali+reviews" target="_blank" rel="noopener noreferrer" class="review-card-link">
-          <article class="review-card">
-            <div class="review-stars">&#9733;&#9733;&#9733;&#9733;&#9734; &middot; Helpful Tip</div>
-            <p class="review-text">&ldquo;Amazing atmosphere and sustainability tour. Arrive early or book ahead for prime daybed spots during sunset hours.&rdquo;</p>
-            <span class="review-meta">Google Review &middot; Seminyak &nearr;</span>
-          </article>
-        </a>
-        <a href="https://www.google.com/maps/search/?api=1&query=Desa+Potato+Head+Seminyak+Bali+reviews" target="_blank" rel="noopener noreferrer" class="review-card-link is-focused">
-          <article class="review-card">
-            <div class="review-stars">&#9733;&#9733;&#9733;&#9733;&#9733; &middot; Dining &amp; Cocktails</div>
-            <p class="review-text">&ldquo;Creative dishes with local ingredients and thoughtful drinks enjoyed right beside the beach.&rdquo;</p>
-            <span class="review-meta">Google Review &middot; Seminyak &nearr;</span>
-          </article>
-        </a>
-        <a href="https://www.google.com/maps/search/?api=1&query=Desa+Potato+Head+Seminyak+Bali+reviews" target="_blank" rel="noopener noreferrer" class="review-card-link">
-          <article class="review-card">
-            <div class="review-stars">&#9733;&#9733;&#9733;&#9733;&#9733; &middot; Music &amp; Atmosphere</div>
-            <p class="review-text">&ldquo;Relaxed daytime vibe that transitions smoothly into golden hour with well-curated sound.&rdquo;</p>
-            <span class="review-meta">Google Review &middot; Seminyak &nearr;</span>
-          </article>
-        </a>
-        <a href="https://www.google.com/maps/search/?api=1&query=Desa+Potato+Head+Seminyak+Bali+reviews" target="_blank" rel="noopener noreferrer" class="review-card-link">
-          <article class="review-card">
-            <div class="review-stars">&#9733;&#9733;&#9733;&#9733;&#9734; &middot; Wellness &amp; Pool</div>
-            <p class="review-text">&ldquo;Refreshing morning sessions and plenty of space to unwind by the pool and ocean breeze.&rdquo;</p>
-            <span class="review-meta">Google Review &middot; Seminyak &nearr;</span>
-          </article>
-        </a>
-        <a href="https://www.google.com/maps/search/?api=1&query=Desa+Potato+Head+Seminyak+Bali+reviews" target="_blank" rel="noopener noreferrer" class="review-card-link">
-          <article class="review-card">
-            <div class="review-stars">&#9733;&#9733;&#9733;&#9733;&#9733; &middot; Culture &amp; Sustainability</div>
-            <p class="review-text">&ldquo;Inspiring community spaces and eco-conscious details that make the whole village feel special.&rdquo;</p>
-            <span class="review-meta">Google Review &middot; Seminyak &nearr;</span>
-          </article>
-        </a>
-      </div>
-    </section>
-  </div>
-
-  <script>
-    // 1. Trigger animasi gambar naik satu per satu & teks fade-in pada Hero Welcome
-    (function () {
-      const welcomeEl = document.getElementById("welcomeSection");
-      if (!welcomeEl) return;
-
-      // Langsung aktifkan sedikit setelah load agar pasti jalan di GitHub Pages maupun iframe
-      requestAnimationFrame(function () {
-        setTimeout(function () {
-          welcomeEl.classList.add("is-visible");
-        }, 80);
-      });
-    })();
-
-    // 2. Smooth Scroll-blur & Fade saat scroll dari Hero ("A place for people...") menuju "Good Times, Done Good"
-    (function () {
-      const heroGroup = document.getElementById("heroTopGroup");
-      const welcomeSection = document.getElementById("welcomeSection");
-      const bgLayer = document.getElementById("heroBgLayer");
-      if (!heroGroup || !bgLayer) return;
-
-      let ticking = false;
-
-      function updateScrollBlur() {
-        const scrollY = window.scrollY || window.pageYOffset || 0;
-        const blurTriggerRange = welcomeSection
-          ? Math.max(320, welcomeSection.offsetHeight * 0.85)
-          : 550;
-
-        // Progres blur dari Hero Welcome menuju section Good Times, Done Good
-        const rawBlurProgress = Math.min(1, Math.max(0, scrollY / blurTriggerRange));
-        const smoothBlur = rawBlurProgress * rawBlurProgress * (3 - 2 * rawBlurProgress);
-        const blurPx = (smoothBlur * 18).toFixed(2);
-
-        // Progres fade-out halus menjelang bagian paling bawah heroTopGroup
-        const rect = heroGroup.getBoundingClientRect();
-        const totalRange = Math.max(400, rect.height - window.innerHeight * 0.25);
-        const rawFadeProgress = Math.min(1, Math.max(0, -rect.top / totalRange));
-        const smoothFade = rawFadeProgress * rawFadeProgress * (3 - 2 * rawFadeProgress);
-        const opacityVal = Math.max(0, 1 - Math.pow(smoothFade, 1.4)).toFixed(3);
-
-        bgLayer.style.setProperty("--hero-blur", blurPx + "px");
-        bgLayer.style.setProperty("--hero-opacity", opacityVal);
-        ticking = false;
-      }
-
-      function onScroll() {
-        if (!ticking) {
-          window.requestAnimationFrame(updateScrollBlur);
-          ticking = true;
-        }
-      }
-
-      window.addEventListener("scroll", onScroll, { passive: true });
-      window.addEventListener("resize", onScroll, { passive: true });
-      updateScrollBlur();
-    })();
-
-    // 3. Fokus kartu review tengah
-    (function () {
-      const track = document.getElementById("reviewsTrack");
-      if (!track) return;
-      const cards = Array.from(track.querySelectorAll(".review-card-link"));
-
-      function updateFocus() {
-        const center = track.getBoundingClientRect().left + track.clientWidth / 2;
-        let closest = cards[0];
-        let minDist = Infinity;
-        cards.forEach(function (card) {
-          const r = card.getBoundingClientRect();
-          const dist = Math.abs(center - (r.left + r.width / 2));
-          if (dist < minDist) {
-            minDist = dist;
-            closest = card;
-          }
-        });
-        cards.forEach(function (c) {
-          c.classList.toggle("is-focused", c === closest);
-        });
-      }
-
-      const mid = cards[Math.floor(cards.length / 2)];
-      if (mid) {
-        track.scrollLeft = Math.max(0, mid.offsetLeft - (track.clientWidth - mid.offsetWidth) / 2);
-      }
-      updateFocus();
-      track.addEventListener("scroll", updateFocus, { passive: true });
-    })();
-  </script>
-</body>
-</html>
