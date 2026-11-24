@@ -1,0 +1,483 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Desa Potato Head — Stays & Suites</title>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700&family=Playfair+Display:ital,wght@0,400;0,500;1,400&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --cream: #f4efe4;
+      --green: #1f3a26;
+      --green2: #2c4a33;
+      --clay: #b8552f;
+      --ink: #1c1c1c;
+      --muted: #4a4843;
+      --sand: #c9a26b;
+      --serif: "Playfair Display", Georgia, serif;
+      --sans: "DM Sans", system-ui, -apple-system, sans-serif;
+      --ease-lux: cubic-bezier(0.22, 1, 0.36, 1);
+    }
+
+    *,
+    *::before,
+    *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html,
+    body {
+      width: 100%;
+      max-width: 100%;
+      overflow-x: hidden;
+      overflow-y: hidden;
+      overscroll-behavior: none;
+      background: transparent;
+      font-family: var(--sans);
+      color: var(--ink);
+    }
+
+    :focus-visible {
+      outline: 3px solid var(--sand);
+      outline-offset: 3px;
+    }
+
+    @keyframes fadeSlideUp {
+      0% { opacity: 0; transform: translateY(14px); }
+      100% { opacity: 1; transform: translateY(0); }
+    }
+
+    /* 1. MOBILE / HP (< 640px) */
+    .stays-section {
+      width: 100%;
+      max-width: 1120px;
+      margin: 0 auto;
+      padding: 8px 0 12px;
+      background: transparent;
+    }
+
+    .stays-header {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 0 14px;
+      gap: 6px;
+      margin-bottom: 12px;
+      opacity: 0;
+      animation: fadeSlideUp 0.85s var(--ease-lux) 0.1s forwards;
+    }
+
+    .stays-eyebrow {
+      font-size: 0.68rem;
+      font-weight: 700;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--sand);
+      text-shadow: 0 1px 10px rgba(0, 0, 0, 0.35);
+    }
+
+    .stays-header h2 {
+      font-family: var(--serif);
+      font-size: 1.4rem;
+      line-height: 1.15;
+      color: #ffffff;
+      font-weight: 400;
+      text-shadow: 0 2px 14px rgba(0, 0, 0, 0.35);
+    }
+
+    .stays-sub {
+      font-size: 0.78rem;
+      line-height: 1.4;
+      color: var(--cream);
+      max-width: 44ch;
+      text-shadow: 0 1px 10px rgba(0, 0, 0, 0.35);
+    }
+
+    /* Track geser kanan-kiri dengan snap tepat ke tengah */
+    .stays-track {
+      display: flex;
+      align-items: stretch;
+      gap: 12px;
+      overflow-x: auto;
+      overflow-y: hidden;
+      scroll-snap-type: x mandatory;
+      scroll-padding-inline: 14%;
+      -webkit-overflow-scrolling: touch;
+      scrollbar-width: none;
+      padding: 8px 14% 12px;
+    }
+
+    .stays-track::-webkit-scrollbar {
+      display: none;
+    }
+
+    .room-card {
+      flex: 0 0 72%;
+      scroll-snap-align: center;
+      background: rgba(244, 239, 228, 0.82);
+      border: 1px solid rgba(255, 255, 255, 0.25);
+      border-radius: 14px;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      transform: scale(0.94);
+      opacity: 0.8;
+      box-shadow: 0 6px 16px rgba(0, 0, 0, 0.16);
+      transition: transform 0.38s var(--ease-lux),
+                  opacity 0.35s ease,
+                  background-color 0.3s ease,
+                  border-color 0.3s ease,
+                  box-shadow 0.38s var(--ease-lux);
+    }
+
+    .room-card.is-focused {
+      transform: scale(1) translateY(-2px);
+      opacity: 1;
+      background: #f4efe4;
+      border-color: var(--sand);
+      box-shadow: 0 12px 24px rgba(0, 0, 0, 0.25);
+    }
+
+    /* Slot Foto Siap Ganti */
+    .room-media {
+      position: relative;
+      width: 100%;
+      height: 145px;
+      background: linear-gradient(135deg, #2c4a33 0%, #8c462b 100%);
+      overflow: hidden;
+    }
+
+    .room-media img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center;
+      display: block;
+      transition: transform 0.6s var(--ease-lux);
+    }
+
+    .room-card.is-focused .room-media img {
+      transform: scale(1.03);
+    }
+
+    .room-badge {
+      position: absolute;
+      top: 10px;
+      left: 10px;
+      background: rgba(28, 28, 28, 0.72);
+      backdrop-filter: blur(4px);
+      color: var(--cream);
+      font-size: 0.65rem;
+      font-weight: 700;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      padding: 4px 9px;
+      border-radius: 999px;
+    }
+
+    .room-body {
+      padding: 13px 15px 15px;
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+      flex: 1;
+    }
+
+    .room-specs {
+      font-size: 0.68rem;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--clay);
+    }
+
+    .room-title {
+      font-family: var(--serif);
+      font-size: 1.2rem;
+      line-height: 1.2;
+      font-weight: 500;
+      color: var(--ink);
+    }
+
+    .room-desc {
+      font-size: 0.78rem;
+      line-height: 1.42;
+      color: var(--muted);
+    }
+
+    .room-footer {
+      margin-top: auto;
+      padding-top: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 8px;
+      border-top: 1px solid rgba(28, 28, 28, 0.1);
+    }
+
+    .room-note {
+      font-size: 0.7rem;
+      font-weight: 500;
+      color: var(--muted);
+    }
+
+    .room-cta {
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      padding: 7px 13px;
+      border-radius: 999px;
+      background: var(--clay);
+      color: #ffffff;
+      text-decoration: none;
+      font-size: 0.68rem;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      white-space: nowrap;
+      transition: background-color 0.2s ease, transform 0.15s ease;
+    }
+
+    .room-cta:active {
+      transform: scale(0.96);
+    }
+
+    /* 2. TABLET (640px - 1023px) */
+    @media (min-width: 640px) {
+      .stays-section {
+        padding: 14px 0 18px;
+      }
+
+      .stays-header {
+        margin-bottom: 16px;
+        gap: 8px;
+      }
+
+      .stays-header h2 {
+        font-size: 1.9rem;
+      }
+
+      .stays-sub {
+        font-size: 0.88rem;
+      }
+
+      .stays-track {
+        gap: 16px;
+        scroll-padding-inline: 22%;
+        padding: 10px 22% 16px;
+      }
+
+      .room-card {
+        flex: 0 0 56%;
+      }
+
+      .room-media {
+        height: 185px;
+      }
+
+      .room-body {
+        padding: 16px 18px 18px;
+        gap: 8px;
+      }
+
+      .room-title {
+        font-size: 1.35rem;
+      }
+
+      .room-desc {
+        font-size: 0.85rem;
+      }
+    }
+
+    /* 3. LAPTOP / DESKTOP (>= 1024px) */
+    @media (min-width: 1024px) {
+      .stays-section {
+        padding: 18px 0 22px;
+      }
+
+      .stays-header {
+        margin-bottom: 18px;
+      }
+
+      .stays-header h2 {
+        font-size: 2.2rem;
+      }
+
+      .stays-track {
+        gap: 18px;
+        scroll-padding-inline: 14%;
+        padding: 12px 14% 20px;
+      }
+
+      .room-card {
+        flex: 0 0 46%;
+        max-width: 430px;
+        border-radius: 16px;
+      }
+
+      .room-media {
+        height: 205px;
+      }
+
+      .room-body {
+        padding: 18px 20px 20px;
+        gap: 8px;
+      }
+
+      .room-title {
+        font-size: 1.45rem;
+      }
+
+      .room-desc {
+        font-size: 0.88rem;
+        line-height: 1.5;
+      }
+
+      .room-cta {
+        padding: 8px 15px;
+        font-size: 0.72rem;
+      }
+    }
+
+    @media (hover: hover) {
+      .room-card:hover {
+        transform: translateY(-4px) scale(1.01);
+        background: #ffffff;
+        border-color: var(--clay);
+        opacity: 1;
+      }
+
+      .room-cta:hover {
+        background: #9e4624;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <section class="stays-section" aria-label="Stays and Suites">
+    <div class="stays-header">
+      <span class="stays-eyebrow">Rest &amp; Sanctuary</span>
+      <h2>Stays &amp; Suites</h2>
+      <p class="stays-sub">Thoughtfully crafted zero-waste studios and ocean-facing suites designed for slow island living.</p>
+    </div>
+
+    <div class="stays-track" id="staysTrack">
+
+      <!-- KAMAR 1: SUNRISE STUDIO -->
+      <article class="room-card">
+        <div class="room-media">
+          <!-- GANTI src DI BAWAH DENGAN LINK FOTO KAMAR 1 -->
+          <img src="GANTI_LINK_FOTO_SUNRISE_STUDIO.jpg" alt="Sunrise Studio at Desa Potato Head" onerror="this.style.display='none'" />
+          <span class="room-badge">Zero-Waste Design</span>
+        </div>
+        <div class="room-body">
+          <span class="room-specs">36 m&sup2; &middot; 2 Guests &middot; Garden View</span>
+          <h3 class="room-title">Sunrise Studio</h3>
+          <p class="room-desc">Warm recycled teak interiors, custom organic linens, and an open balcony overlooking tropical greenery.</p>
+          <div class="room-footer">
+            <span class="room-note">Includes Beach Club Access</span>
+            <a href="https://seminyak.potatohead.co/stays/" target="_blank" rel="noopener noreferrer" class="room-cta">View Room &nearr;</a>
+          </div>
+        </div>
+      </article>
+
+      <!-- KAMAR 2: BAMBOO STUDIO (DEFAULT FOKUS TENGAH) -->
+      <article class="room-card is-focused">
+        <div class="room-media">
+          <!-- GANTI src DI BAWAH DENGAN LINK FOTO KAMAR 2 -->
+          <img src="GANTI_LINK_FOTO_BAMBOO_STUDIO.jpg" alt="Bamboo Studio at Desa Potato Head" onerror="this.style.display='none'" />
+          <span class="room-badge">Most Popular</span>
+        </div>
+        <div class="room-body">
+          <span class="room-specs">48 m&sup2; &middot; 2 Guests &middot; Balcony</span>
+          <h3 class="room-title">Bamboo Studio</h3>
+          <p class="room-desc">Handwoven bamboo craftsmanship paired with a private daybed lounge and artisanal zero-waste amenities.</p>
+          <div class="room-footer">
+            <span class="room-note">Daily Wellness Session</span>
+            <a href="https://seminyak.potatohead.co/stays/" target="_blank" rel="noopener noreferrer" class="room-cta">View Room &nearr;</a>
+          </div>
+        </div>
+      </article>
+
+      <!-- KAMAR 3: OCEANFRONT SUITE -->
+      <article class="room-card">
+        <div class="room-media">
+          <!-- GANTI src DI BAWAH DENGAN LINK FOTO KAMAR 3 -->
+          <img src="GANTI_LINK_FOTO_OCEANFRONT_SUITE.jpg" alt="Oceanfront Suite at Desa Potato Head" onerror="this.style.display='none'" />
+          <span class="room-badge">Ocean View</span>
+        </div>
+        <div class="room-body">
+          <span class="room-specs">68 m&sup2; &middot; 2–3 Guests &middot; Sunset Terrace</span>
+          <h3 class="room-title">Oceanfront Suite</h3>
+          <p class="room-desc">Panoramic Indian Ocean views, spacious living area, and direct sunset breeze right above the beach club.</p>
+          <div class="room-footer">
+            <span class="room-note">Priority Sunset Seating</span>
+            <a href="https://seminyak.potatohead.co/stays/" target="_blank" rel="noopener noreferrer" class="room-cta">View Room &nearr;</a>
+          </div>
+        </div>
+      </article>
+
+    </div>
+  </section>
+
+  <script>
+    (function () {
+      var track = document.getElementById("staysTrack");
+      if (!track) return;
+      var cards = Array.prototype.slice.call(track.querySelectorAll(".room-card"));
+      if (!cards.length) return;
+
+      function updateCenterFocus() {
+        var trackRect = track.getBoundingClientRect();
+        var trackCenter = trackRect.left + trackRect.width / 2;
+        var closestCard = null;
+        var closestDistance = Infinity;
+
+        cards.forEach(function (card) {
+          var rect = card.getBoundingClientRect();
+          var cardCenter = rect.left + rect.width / 2;
+          var dist = Math.abs(trackCenter - cardCenter);
+          if (dist < closestDistance) {
+            closestDistance = dist;
+            closestCard = card;
+          }
+        });
+
+        cards.forEach(function (card) {
+          card.classList.toggle("is-focused", card === closestCard);
+        });
+      }
+
+      function centerMiddleCard() {
+        var middleIndex = Math.floor(cards.length / 2);
+        var target = cards[middleIndex];
+        if (!target) return;
+        var targetLeft = target.offsetLeft - (track.clientWidth - target.offsetWidth) / 2;
+        track.scrollTo({ left: Math.max(0, targetLeft), behavior: "auto" });
+        updateCenterFocus();
+      }
+
+      var ticking = false;
+      track.addEventListener("scroll", function () {
+        if (!ticking) {
+          window.requestAnimationFrame(function () {
+            updateCenterFocus();
+            ticking = false;
+          });
+          ticking = true;
+        }
+      }, { passive: true });
+
+      window.addEventListener("resize", centerMiddleCard, { passive: true });
+      window.addEventListener("load", centerMiddleCard);
+      centerMiddleCard();
+    })();
+  </script>
+
+</body>
+</html>
