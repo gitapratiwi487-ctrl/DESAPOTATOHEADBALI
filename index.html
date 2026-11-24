@@ -51,6 +51,7 @@
       position: relative;
       isolation: isolate;
       overflow: hidden;
+      background-color: var(--bg-forest);
     }
 
     .hero-bg-layer {
@@ -59,17 +60,32 @@
       z-index: -1;
       pointer-events: none;
       background:
-        linear-gradient(to bottom, rgba(16, 28, 19, 0.42), rgba(16, 28, 19, 0.68)),
-        url("https://lh3.googleusercontent.com/d/1oLlRXzHeX_9pwjWZbsOksmoy5O7SCBc3") center / cover no-repeat,
+        linear-gradient(to bottom, rgba(16, 28, 19, 0.35), rgba(16, 28, 19, 0.65)),
+        url("https://lh3.googleusercontent.com/d/1UHWz-n71ZLIXZ-ZIIaLGxK2fAAXqBW0_") center / cover no-repeat,
         linear-gradient(145deg, #1f3a26 0%, #2c4a33 55%, #6e3720 100%);
+      opacity: var(--hero-opacity, 1);
       filter: blur(var(--hero-blur, 0px)) saturate(1.05);
-      transform: scale(calc(1 + var(--hero-blur, 0px) * 0.008));
-      transition: filter 0.12s linear, transform 0.12s linear;
-      will-change: filter, transform;
+      transform: scale(calc(1.03 + var(--hero-blur, 0px) * 0.008));
+      transition: opacity 0.25s cubic-bezier(0.25, 0.1, 0.25, 1), filter 0.18s linear, transform 0.18s linear;
+      will-change: opacity, filter, transform;
     }
 
-    .hero-bg-layer.is-hidden {
-      opacity: 0;
+    /* Gradasi halus di bagian bawah hero-top-group untuk transisi mulus ke warna solid */
+    .hero-top-group::after {
+      content: "";
+      position: absolute;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      height: 160px;
+      background: linear-gradient(to bottom, transparent 0%, rgba(29, 51, 33, 0.65) 55%, var(--bg-forest) 100%);
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    .title-section, .wa-embed-wrap, .reviews-section {
+      position: relative;
+      z-index: 1;
     }
 
     /* 1A. HERO TITLE */
@@ -172,7 +188,7 @@
     .reviews-section {
       max-width: 1160px;
       margin: 0 auto;
-      padding: 8px 0 clamp(32px, 5vw, 56px);
+      padding: 8px 0 clamp(48px, 6vw, 72px);
     }
 
     .reviews-header {
@@ -281,6 +297,8 @@
 
     /* ================= 2. WELCOME GATEWAY ================= */
     .gateway-section {
+      position: relative;
+      z-index: 1;
       background: var(--bg-forest);
       padding: clamp(44px, 7vw, 84px) clamp(16px, 4vw, 36px);
     }
@@ -384,6 +402,8 @@
 
     /* ================= 3. EXPERIENCES CAROUSEL ================= */
     .exp-section {
+      position: relative;
+      z-index: 1;
       background: var(--bg-forest);
       padding: clamp(32px, 6vw, 68px) clamp(14px, 4vw, 36px);
     }
@@ -554,6 +574,8 @@
 
     /* ================= 4. OUR STAYS ================= */
     .stays-section {
+      position: relative;
+      z-index: 1;
       background: var(--bg-forest);
       padding: clamp(36px, 6vw, 72px) clamp(16px, 4vw, 36px) clamp(48px, 8vw, 88px);
     }
@@ -714,6 +736,8 @@
 
     /* ================= 5. FIND US & FAQ ================= */
     .info-section {
+      position: relative;
+      z-index: 1;
       background: var(--bg-cream);
       color: var(--text-dark);
       padding: clamp(44px, 7vw, 84px) clamp(16px, 5vw, 48px);
@@ -874,7 +898,7 @@
 </head>
 <body>
 
-  <!-- 3 BAGIAN AWAL DENGAN EFEK SCROLL-BLUR BACKGROUND -->
+  <!-- 3 BAGIAN AWAL DENGAN EFEK SCROLL-BLUR & SMOOTH COLOR FADE BACKGROUND -->
   <div class="hero-top-group" id="heroTopGroup">
     <div class="hero-bg-layer" id="heroBgLayer" aria-hidden="true"></div>
 
@@ -1253,24 +1277,40 @@
   </section>
 
   <script>
-    // 1. Scroll-blur untuk 3 bagian teratas (Hero, WhatsApp CTA, Reviews)
+    // 1. Smooth Scroll-blur & Opacity Fade ke solid background color (--bg-forest)
     (function () {
       const heroGroup = document.getElementById("heroTopGroup");
       const bgLayer = document.getElementById("heroBgLayer");
       if (!heroGroup || !bgLayer) return;
 
+      let ticking = false;
+
       function updateScrollBlur() {
         const rect = heroGroup.getBoundingClientRect();
         const scrolled = Math.max(0, -rect.top);
-        const maxRange = Math.max(240, rect.height * 0.75);
-        const progress = Math.min(1, scrolled / maxRange);
-        const blurPx = (progress * 14).toFixed(2);
+        const maxRange = Math.max(280, rect.height * 0.85);
+        const rawProgress = Math.min(1, scrolled / maxRange);
+
+        // Smoothstep easing curve untuk transisi yang sangat halus
+        const smoothProgress = rawProgress * rawProgress * (3 - 2 * rawProgress);
+
+        const blurPx = (smoothProgress * 18).toFixed(2);
+        const opacityVal = Math.max(0, 1 - smoothProgress).toFixed(3);
+
         bgLayer.style.setProperty("--hero-blur", blurPx + "px");
-        bgLayer.classList.toggle("is-hidden", rect.bottom <= 0);
+        bgLayer.style.setProperty("--hero-opacity", opacityVal);
+        ticking = false;
       }
 
-      window.addEventListener("scroll", updateScrollBlur, { passive: true });
-      window.addEventListener("resize", updateScrollBlur, { passive: true });
+      function onScroll() {
+        if (!ticking) {
+          window.requestAnimationFrame(updateScrollBlur);
+          ticking = true;
+        }
+      }
+
+      window.addEventListener("scroll", onScroll, { passive: true });
+      window.addEventListener("resize", onScroll, { passive: true });
       updateScrollBlur();
     })();
 
